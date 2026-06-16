@@ -1,0 +1,18 @@
+name: Production Deployment Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Execute Webhook Notification
+        run: |
+          echo "Notifying engineering workspace of production push..."
+          # Exposed webhook secret token format
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Deploy Successful"}' https://hooks.slack.com/services/T00000000/B00000000/api_key="secret_token_abc123xyz7890"
